@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Net;
 using System.Runtime.InteropServices;
+using System.Text;
 using Microsoft.Office.Interop.Excel;
 using System.Windows.Forms;
 using MetroFramework;
-using MailKit;
 using MailKit.Net.Smtp;
 using MailKit.Security;
-using MimeKit;
 
 namespace EWS_Remote_Config_Tool
 {
@@ -24,7 +21,6 @@ namespace EWS_Remote_Config_Tool
         private _Worksheet xlWs { get; set; }
 
         #endregion
-        
         
         public Main()
         {
@@ -102,7 +98,7 @@ namespace EWS_Remote_Config_Tool
             SettingsColourComboBox.SelectedIndex = 3;
             SettingsDarkModeToggle.Checked = true;
             SettingsLogOutButton.Hide();
-            
+            IMEIListPanel.Hide();
         }
         
         private void SettingsLogOutButton_Click(object sender, EventArgs e)
@@ -158,10 +154,19 @@ namespace EWS_Remote_Config_Tool
                 xlRange = xlWs.UsedRange;
                 Console.WriteLine("Calculating IMEI Count");
                 int rowCount = xlRange.Rows.Count - 1;
-                IMEILabel.Text = rowCount.ToString() + " IMEIs Found.";
+                IMEILabel.Text = rowCount + " IMEIs Found.";
                 
                 string DisplayPath = filePath.Substring(filePath.LastIndexOf("\\") + 1, filePath.Length - filePath.LastIndexOf("\\") - 1);
                 ExcelFilePathLabel.Text = DisplayPath;
+                IMEIListPanel.Show();
+                StringBuilder IMEIs = new StringBuilder();
+                for (int i = 2; i < xlRange.Rows.Count + 1; i++)
+                {
+                    IMEIs.AppendLine(Convert.ToString(xlWs.Cells[i, 1].Value));
+                }
+                IMEIListTextBox.Text += IMEIs;
+
+                
             }
         }
     }
