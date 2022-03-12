@@ -1,17 +1,33 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Text;
+using Microsoft.VisualBasic;
 using Microsoft.Office.Interop.Excel;
 using System.Windows.Forms;
 using MetroFramework;
 using MailKit.Net.Smtp;
 using MailKit.Security;
+using MimeKit;
 
 namespace EWS_Remote_Config_Tool
 {
     public partial class Main : MetroFramework.Forms.MetroForm
     {
         private SmtpClient client { get; set; }
+        private MailboxAddress emailAddressMA { get; set; }
+        private string emailAddress { get; set; }
+        private string destinationAddress { get; set; }
+        private string[] filePaths { get; set; }
+
+        #region Checks
+
+        private bool isLoggedIn { get; set; }
+        private bool filesLoaded { get; set; }
+        
+        private bool isOpened { get; set; }
+
+        #endregion
+        
 
         #region Excel Variables
 
@@ -35,7 +51,7 @@ namespace EWS_Remote_Config_Tool
 
         private void EmailLogin()
         {
-            string emailAddress = EmailLoginTextBox.Text;
+            emailAddress = EmailLoginTextBox.Text;
             string emailPassword = EmailPasswordTextBox.Text;
             
             if (!emailAddress.Contains("@ewsaustralia.com"))
@@ -44,6 +60,7 @@ namespace EWS_Remote_Config_Tool
                 EmailLoginTextBox.Clear();
                 EmailPasswordTextBox.Clear();
                 Console.WriteLine("Invalid email. Not EWS Staff");
+                isLoggedIn = false;
                 return;
             }
             
@@ -58,12 +75,15 @@ namespace EWS_Remote_Config_Tool
                 client.Authenticate(emailAddress, emailPassword);
                 Console.WriteLine("Logged In");
                 MessageBox.Show("Login To Email Server Successful", "Login Successful", MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
+                    MessageBoxIcon.None);
                 SettingsLogOutButton.Show();
                 AccountLabel.Text = "Logged in as: " + emailAddress;
+                emailAddressMA = MailboxAddress.Parse(emailAddress);
+                isLoggedIn = true;
             }
             catch (Exception ex)
             {
+                isLoggedIn = false;
                 Console.WriteLine(ex.Message);
                 MessageBox.Show(ex.Message);
                 throw;
@@ -99,6 +119,9 @@ namespace EWS_Remote_Config_Tool
             SettingsDarkModeToggle.Checked = true;
             SettingsLogOutButton.Hide();
             IMEIListPanel.Hide();
+            isOpened = false;
+            filesLoaded = false;
+            isLoggedIn = false;
         }
         
         private void SettingsLogOutButton_Click(object sender, EventArgs e)
@@ -110,31 +133,38 @@ namespace EWS_Remote_Config_Tool
             EmailPasswordTextBox.Clear();
             AccountLabel.Text = "Logged Out";
             SettingsLogOutButton.Hide();
+            isLoggedIn = false;
         }
 
         private void Main_FormClosed(object sender, FormClosedEventArgs e)
         {
             
-            if (AccountLabel.Text.Contains("Logged in"))
+            if (isLoggedIn)
             {
                 client.Disconnect(true);
                 Console.WriteLine("Disconnected");
                 client.Dispose();
                 Console.WriteLine("Disposed");
             }
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
-            Marshal.ReleaseComObject(xlRange);
-            Marshal.ReleaseComObject(xlWs);
-            xlWb.Close();
-            Marshal.ReleaseComObject(xlWb);
-            xlApp.Quit();
-            Marshal.ReleaseComObject(xlApp);
 
+            if (isOpened == true)
+            {
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+                Marshal.ReleaseComObject(xlRange);
+                Marshal.ReleaseComObject(xlWs);
+                xlWb.Close(false);
+                Marshal.ReleaseComObject(xlWb);
+                xlApp.Quit();
+                Marshal.ReleaseComObject(xlApp);
+                Console.WriteLine("Excel Closed");
+            }
         }
 
         private void ExcelFileButton_Click(object sender, EventArgs e)
         {
+            isOpened = false;
+            IMEIListTextBox.Clear();
             string filePath = "";
             Console.WriteLine("Opening File Picker Dialog");
             OpenFileDialog fdlg = new OpenFileDialog();
@@ -165,9 +195,113 @@ namespace EWS_Remote_Config_Tool
                     IMEIs.AppendLine(Convert.ToString(xlWs.Cells[i, 1].Value));
                 }
                 IMEIListTextBox.Text += IMEIs;
-
-                
+                isOpened = true;
             }
         }
+
+        private void ChangeFilesButton_Click(object sender, EventArgs e)
+        {
+            filesLoaded = false;
+            ChangeFilesTextBox.Clear();
+            OpenFileDialog fileDialog = new OpenFileDialog();
+            fileDialog.Title = "Select Change Files";
+            fileDialog.InitialDirectory = @"c:\";
+            fileDialog.Multiselect = true;
+            fileDialog.Filter = "Change Files (*.sbd)|*.sbd|" + "All files (*.*)|*.*";
+            fileDialog.FilterIndex = 1;
+            fileDialog.RestoreDirectory = true;
+            if (fileDialog.ShowDialog() == DialogResult.OK)
+            {
+                filePaths = fileDialog.FileNames;
+                StringBuilder sb = new StringBuilder();
+                foreach (var file in fileDialog.FileNames)
+                {
+                    
+                    string fileName = file.Substring(file.LastIndexOf("\\") + 1,
+                        file.Length - file.LastIndexOf("\\") - 1);
+                    sb.AppendLine(fileName);
+                }
+
+                ChangeFilesTextBox.Text += sb;
+                filesLoaded = true;
+            }
+        }
+
+        private void SendChangesButton_Click(object sender, EventArgs e)
+        {
+            if (isOpened && filesLoaded && isLoggedIn && !ChangeDestinationComboBox.Text.Equals(""))
+            {
+                try
+                {
+                    Console.WriteLine("Ready to Send");
+                    
+                    if(ChangeDestinationComboBox.Text == "Iridium")
+                    {
+                        //destinationAddress = "data@sbd.iridium.com";
+                        destinationAddress = "rileyleno@gmail.com";
+                    }else if (ChangeDestinationComboBox.Text == "Cellular")
+                    {
+                        //destinationAddress = "devices@ewsaustralia.com";
+                        destinationAddress = "bradyhazell1@gmail.com";
+                    }else if (ChangeDestinationComboBox.Text == "Custom")
+                    {
+                        string display, title, defaultValue;
+                        object customInput;
+
+                        display = "Please input your custom destination.";
+                        title = "Custom Destination";
+                        defaultValue = "";
+
+                        customInput = Interaction.InputBox(display, title, defaultValue);
+                        if (customInput == "")
+                        {
+                            customInput = emailAddress;
+                        }
+
+                        destinationAddress = customInput.ToString();
+                    }
+                    else
+                    {
+                        MessageBox.Show(
+                            "An error occured, please ensure there is a destination selected in the Email Detais tab.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    StringBuilder sb = new StringBuilder();
+                    for (int i = 2; i < xlRange.Rows.Count + 1; i++)
+                    {
+                        MimeMessage message = new MimeMessage();
+                        message.From.Add(emailAddressMA);
+                        message.To.Add(MailboxAddress.Parse(destinationAddress));
+                        message.Subject = Convert.ToString(xlWs.Cells[i, 1].Value);
+                        var builder = new BodyBuilder();
+                        foreach (var file in filePaths)
+                        {
+                            builder.Attachments.Add(file);
+                        }
+
+                        message.Body = builder.ToMessageBody();
+                        client.Send(message);
+                        sb.AppendLine("Sent changes to " + message.Subject.ToString());
+                        ConsoleTextBox.Text += sb;
+                        sb.Clear();
+                    }
+
+                    sb.AppendLine("Complete");
+                    MessageBox.Show("Remote Changes Completed!", "Complete", MessageBoxButtons.OK, MessageBoxIcon.None);
+
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                
+            }
+            else
+            {
+                MessageBox.Show("Not all options are selected.", "Error", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
+            }
+        }
+        
     }
 }

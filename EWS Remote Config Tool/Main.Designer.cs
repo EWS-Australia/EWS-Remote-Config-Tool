@@ -40,6 +40,10 @@ namespace EWS_Remote_Config_Tool
             this.EmailLoginLabel = new MetroFramework.Controls.MetroLabel();
             this.EmailPasswordTextBox = new MetroFramework.Controls.MetroTextBox();
             this.EmailLoginTextBox = new MetroFramework.Controls.MetroTextBox();
+            this.SendChangesPage = new MetroFramework.Controls.MetroTabPage();
+            this.ConsolePanel = new MetroFramework.Controls.MetroPanel();
+            this.ConsoleTextBox = new MetroFramework.Controls.MetroTextBox();
+            this.SendChangesButton = new MetroFramework.Controls.MetroButton();
             this.EmailDetailsPage = new MetroFramework.Controls.MetroTabPage();
             this.IMEIListPanel = new MetroFramework.Controls.MetroPanel();
             this.IMEIListTextBox = new MetroFramework.Controls.MetroTextBox();
@@ -48,19 +52,26 @@ namespace EWS_Remote_Config_Tool
             this.IMEILabel = new MetroFramework.Controls.MetroLabel();
             this.ExcelFilePathLabel = new MetroFramework.Controls.MetroLabel();
             this.ExcelFileButton = new MetroFramework.Controls.MetroButton();
+            this.ChangeFilesPage = new MetroFramework.Controls.MetroTabPage();
+            this.ChangeFilesPanel = new MetroFramework.Controls.MetroPanel();
+            this.ChangeFilesTextBox = new MetroFramework.Controls.MetroTextBox();
+            this.ChangeFilesButton = new MetroFramework.Controls.MetroButton();
             this.SettingsPage = new MetroFramework.Controls.MetroTabPage();
             this.SettingsLogOutButton = new MetroFramework.Controls.MetroButton();
             this.SettingsColourComboBox = new MetroFramework.Controls.MetroComboBox();
             this.SettingsColourLabel = new MetroFramework.Controls.MetroLabel();
             this.SettingsDarkModeLabel = new MetroFramework.Controls.MetroLabel();
             this.SettingsDarkModeToggle = new MetroFramework.Controls.MetroToggle();
-            this.ChangeFilesPage = new MetroFramework.Controls.MetroTabPage();
             this.metroStyleManager1 = new MetroFramework.Components.MetroStyleManager(this.components);
             this.AccountLabel = new MetroFramework.Controls.MetroLabel();
             this.TabControl.SuspendLayout();
             this.EmailLoginPage.SuspendLayout();
+            this.SendChangesPage.SuspendLayout();
+            this.ConsolePanel.SuspendLayout();
             this.EmailDetailsPage.SuspendLayout();
             this.IMEIListPanel.SuspendLayout();
+            this.ChangeFilesPage.SuspendLayout();
+            this.ChangeFilesPanel.SuspendLayout();
             this.SettingsPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize) (this.metroStyleManager1)).BeginInit();
             this.SuspendLayout();
@@ -69,11 +80,12 @@ namespace EWS_Remote_Config_Tool
             // 
             this.TabControl.Controls.Add(this.EmailLoginPage);
             this.TabControl.Controls.Add(this.EmailDetailsPage);
-            this.TabControl.Controls.Add(this.SettingsPage);
             this.TabControl.Controls.Add(this.ChangeFilesPage);
+            this.TabControl.Controls.Add(this.SendChangesPage);
+            this.TabControl.Controls.Add(this.SettingsPage);
             this.TabControl.Location = new System.Drawing.Point(23, 77);
             this.TabControl.Name = "TabControl";
-            this.TabControl.SelectedIndex = 1;
+            this.TabControl.SelectedIndex = 0;
             this.TabControl.Size = new System.Drawing.Size(754, 350);
             this.TabControl.TabIndex = 7;
             // 
@@ -98,7 +110,7 @@ namespace EWS_Remote_Config_Tool
             this.EmailLoginButton.Name = "EmailLoginButton";
             this.EmailLoginButton.Size = new System.Drawing.Size(227, 26);
             this.EmailLoginButton.TabIndex = 11;
-            this.EmailLoginButton.Text = "Send";
+            this.EmailLoginButton.Text = "Login";
             this.EmailLoginButton.Click += new System.EventHandler(this.EmailLoginButton_Click);
             // 
             // EmailPasswordLabel
@@ -132,6 +144,54 @@ namespace EWS_Remote_Config_Tool
             this.EmailLoginTextBox.Size = new System.Drawing.Size(228, 22);
             this.EmailLoginTextBox.TabIndex = 7;
             // 
+            // SendChangesPage
+            // 
+            this.SendChangesPage.Controls.Add(this.ConsolePanel);
+            this.SendChangesPage.Controls.Add(this.SendChangesButton);
+            this.SendChangesPage.HorizontalScrollbarBarColor = true;
+            this.SendChangesPage.Location = new System.Drawing.Point(4, 35);
+            this.SendChangesPage.Name = "SendChangesPage";
+            this.SendChangesPage.Size = new System.Drawing.Size(746, 311);
+            this.SendChangesPage.TabIndex = 4;
+            this.SendChangesPage.Text = "Send Changes";
+            this.SendChangesPage.VerticalScrollbarBarColor = true;
+            // 
+            // ConsolePanel
+            // 
+            this.ConsolePanel.Controls.Add(this.ConsoleTextBox);
+            this.ConsolePanel.HorizontalScrollbar = true;
+            this.ConsolePanel.HorizontalScrollbarBarColor = true;
+            this.ConsolePanel.HorizontalScrollbarHighlightOnWheel = false;
+            this.ConsolePanel.HorizontalScrollbarSize = 10;
+            this.ConsolePanel.Location = new System.Drawing.Point(225, 10);
+            this.ConsolePanel.Name = "ConsolePanel";
+            this.ConsolePanel.Size = new System.Drawing.Size(494, 290);
+            this.ConsolePanel.TabIndex = 16;
+            this.ConsolePanel.VerticalScrollbar = true;
+            this.ConsolePanel.VerticalScrollbarBarColor = true;
+            this.ConsolePanel.VerticalScrollbarHighlightOnWheel = false;
+            this.ConsolePanel.VerticalScrollbarSize = 10;
+            // 
+            // ConsoleTextBox
+            // 
+            this.ConsoleTextBox.Location = new System.Drawing.Point(3, 3);
+            this.ConsoleTextBox.Multiline = true;
+            this.ConsoleTextBox.Name = "ConsoleTextBox";
+            this.ConsoleTextBox.ReadOnly = true;
+            this.ConsoleTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.ConsoleTextBox.Size = new System.Drawing.Size(488, 284);
+            this.ConsoleTextBox.TabIndex = 3;
+            this.ConsoleTextBox.Text = " ";
+            // 
+            // SendChangesButton
+            // 
+            this.SendChangesButton.Location = new System.Drawing.Point(30, 20);
+            this.SendChangesButton.Name = "SendChangesButton";
+            this.SendChangesButton.Size = new System.Drawing.Size(173, 37);
+            this.SendChangesButton.TabIndex = 2;
+            this.SendChangesButton.Text = "Send Changes";
+            this.SendChangesButton.Click += new System.EventHandler(this.SendChangesButton_Click);
+            // 
             // EmailDetailsPage
             // 
             this.EmailDetailsPage.Controls.Add(this.IMEIListPanel);
@@ -157,7 +217,7 @@ namespace EWS_Remote_Config_Tool
             this.IMEIListPanel.HorizontalScrollbarSize = 10;
             this.IMEIListPanel.Location = new System.Drawing.Point(449, 21);
             this.IMEIListPanel.Name = "IMEIListPanel";
-            this.IMEIListPanel.Size = new System.Drawing.Size(297, 290);
+            this.IMEIListPanel.Size = new System.Drawing.Size(297, 269);
             this.IMEIListPanel.TabIndex = 14;
             this.IMEIListPanel.VerticalScrollbar = true;
             this.IMEIListPanel.VerticalScrollbarBarColor = true;
@@ -166,12 +226,12 @@ namespace EWS_Remote_Config_Tool
             // 
             // IMEIListTextBox
             // 
-            this.IMEIListTextBox.Location = new System.Drawing.Point(3, 6);
+            this.IMEIListTextBox.Location = new System.Drawing.Point(3, 3);
             this.IMEIListTextBox.Multiline = true;
             this.IMEIListTextBox.Name = "IMEIListTextBox";
             this.IMEIListTextBox.ReadOnly = true;
             this.IMEIListTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.IMEIListTextBox.Size = new System.Drawing.Size(291, 284);
+            this.IMEIListTextBox.Size = new System.Drawing.Size(291, 262);
             this.IMEIListTextBox.TabIndex = 3;
             // 
             // ChangeDestinationLabel
@@ -216,6 +276,54 @@ namespace EWS_Remote_Config_Tool
             this.ExcelFileButton.TabIndex = 2;
             this.ExcelFileButton.Text = "Select IMEI List";
             this.ExcelFileButton.Click += new System.EventHandler(this.ExcelFileButton_Click);
+            // 
+            // ChangeFilesPage
+            // 
+            this.ChangeFilesPage.Controls.Add(this.ChangeFilesPanel);
+            this.ChangeFilesPage.Controls.Add(this.ChangeFilesButton);
+            this.ChangeFilesPage.HorizontalScrollbarBarColor = true;
+            this.ChangeFilesPage.Location = new System.Drawing.Point(4, 35);
+            this.ChangeFilesPage.Name = "ChangeFilesPage";
+            this.ChangeFilesPage.Size = new System.Drawing.Size(746, 311);
+            this.ChangeFilesPage.TabIndex = 2;
+            this.ChangeFilesPage.Text = "Change Files";
+            this.ChangeFilesPage.VerticalScrollbarBarColor = true;
+            // 
+            // ChangeFilesPanel
+            // 
+            this.ChangeFilesPanel.Controls.Add(this.ChangeFilesTextBox);
+            this.ChangeFilesPanel.HorizontalScrollbar = true;
+            this.ChangeFilesPanel.HorizontalScrollbarBarColor = true;
+            this.ChangeFilesPanel.HorizontalScrollbarHighlightOnWheel = false;
+            this.ChangeFilesPanel.HorizontalScrollbarSize = 10;
+            this.ChangeFilesPanel.Location = new System.Drawing.Point(225, 10);
+            this.ChangeFilesPanel.Name = "ChangeFilesPanel";
+            this.ChangeFilesPanel.Size = new System.Drawing.Size(494, 290);
+            this.ChangeFilesPanel.TabIndex = 15;
+            this.ChangeFilesPanel.VerticalScrollbar = true;
+            this.ChangeFilesPanel.VerticalScrollbarBarColor = true;
+            this.ChangeFilesPanel.VerticalScrollbarHighlightOnWheel = false;
+            this.ChangeFilesPanel.VerticalScrollbarSize = 10;
+            // 
+            // ChangeFilesTextBox
+            // 
+            this.ChangeFilesTextBox.Location = new System.Drawing.Point(3, 3);
+            this.ChangeFilesTextBox.Multiline = true;
+            this.ChangeFilesTextBox.Name = "ChangeFilesTextBox";
+            this.ChangeFilesTextBox.ReadOnly = true;
+            this.ChangeFilesTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.ChangeFilesTextBox.Size = new System.Drawing.Size(488, 284);
+            this.ChangeFilesTextBox.TabIndex = 3;
+            this.ChangeFilesTextBox.Text = " ";
+            // 
+            // ChangeFilesButton
+            // 
+            this.ChangeFilesButton.Location = new System.Drawing.Point(50, 25);
+            this.ChangeFilesButton.Name = "ChangeFilesButton";
+            this.ChangeFilesButton.Size = new System.Drawing.Size(114, 22);
+            this.ChangeFilesButton.TabIndex = 3;
+            this.ChangeFilesButton.Text = "Select Change Files";
+            this.ChangeFilesButton.Click += new System.EventHandler(this.ChangeFilesButton_Click);
             // 
             // SettingsPage
             // 
@@ -280,16 +388,6 @@ namespace EWS_Remote_Config_Tool
             this.SettingsDarkModeToggle.UseVisualStyleBackColor = true;
             this.SettingsDarkModeToggle.CheckedChanged += new System.EventHandler(this.SettingsDarkModeToggle_CheckedChanged);
             // 
-            // ChangeFilesPage
-            // 
-            this.ChangeFilesPage.HorizontalScrollbarBarColor = true;
-            this.ChangeFilesPage.Location = new System.Drawing.Point(4, 35);
-            this.ChangeFilesPage.Name = "ChangeFilesPage";
-            this.ChangeFilesPage.Size = new System.Drawing.Size(746, 311);
-            this.ChangeFilesPage.TabIndex = 2;
-            this.ChangeFilesPage.Text = "Change Files";
-            this.ChangeFilesPage.VerticalScrollbarBarColor = true;
-            // 
             // metroStyleManager1
             // 
             this.metroStyleManager1.Owner = this;
@@ -319,12 +417,28 @@ namespace EWS_Remote_Config_Tool
             this.Load += new System.EventHandler(this.Main_Load);
             this.TabControl.ResumeLayout(false);
             this.EmailLoginPage.ResumeLayout(false);
+            this.SendChangesPage.ResumeLayout(false);
+            this.ConsolePanel.ResumeLayout(false);
             this.EmailDetailsPage.ResumeLayout(false);
             this.IMEIListPanel.ResumeLayout(false);
+            this.ChangeFilesPage.ResumeLayout(false);
+            this.ChangeFilesPanel.ResumeLayout(false);
             this.SettingsPage.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize) (this.metroStyleManager1)).EndInit();
             this.ResumeLayout(false);
         }
+
+        private MetroFramework.Controls.MetroPanel ConsolePanel;
+        private MetroFramework.Controls.MetroTextBox ConsoleTextBox;
+
+        private MetroFramework.Controls.MetroButton SendChangesButton;
+
+        private MetroFramework.Controls.MetroTabPage SendChangesPage;
+
+        private MetroFramework.Controls.MetroPanel ChangeFilesPanel;
+        private MetroFramework.Controls.MetroTextBox ChangeFilesTextBox;
+
+        private MetroFramework.Controls.MetroButton ChangeFilesButton;
 
         private MetroFramework.Controls.MetroTextBox IMEIListTextBox;
 
