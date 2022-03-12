@@ -237,12 +237,13 @@ namespace EWS_Remote_Config_Tool
                     
                     if(ChangeDestinationComboBox.Text == "Iridium")
                     {
-                        //destinationAddress = "data@sbd.iridium.com";
-                        destinationAddress = "rileyleno@gmail.com";
+                        destinationAddress = "data@sbd.iridium.com";
                     }else if (ChangeDestinationComboBox.Text == "Cellular")
                     {
                         //destinationAddress = "devices@ewsaustralia.com";
-                        destinationAddress = "bradyhazell1@gmail.com";
+                        MessageBox.Show("Currently sending remote changes to cellular deivces is disabled.",
+                            "Feature Disabled", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        return;
                     }else if (ChangeDestinationComboBox.Text == "Custom")
                     {
                         string display, title, defaultValue;
@@ -295,7 +296,6 @@ namespace EWS_Remote_Config_Tool
                 {
                     MessageBox.Show(ex.Message);
                 }
-                
             }
             else
             {
