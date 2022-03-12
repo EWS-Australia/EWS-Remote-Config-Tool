@@ -254,7 +254,7 @@ namespace EWS_Remote_Config_Tool
                         defaultValue = "";
 
                         customInput = Interaction.InputBox(display, title, defaultValue);
-                        if (customInput == "")
+                        if (customInput == null)
                         {
                             customInput = emailAddress;
                         }

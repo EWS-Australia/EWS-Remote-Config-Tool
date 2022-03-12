@@ -40,6 +40,10 @@ namespace EWS_Remote_Config_Tool
             this.EmailLoginLabel = new MetroFramework.Controls.MetroLabel();
             this.EmailPasswordTextBox = new MetroFramework.Controls.MetroTextBox();
             this.EmailLoginTextBox = new MetroFramework.Controls.MetroTextBox();
+            this.SendChangesPage = new MetroFramework.Controls.MetroTabPage();
+            this.ConsolePanel = new MetroFramework.Controls.MetroPanel();
+            this.ConsoleTextBox = new MetroFramework.Controls.MetroTextBox();
+            this.SendChangesButton = new MetroFramework.Controls.MetroButton();
             this.EmailDetailsPage = new MetroFramework.Controls.MetroTabPage();
             this.IMEIListPanel = new MetroFramework.Controls.MetroPanel();
             this.IMEIListTextBox = new MetroFramework.Controls.MetroTextBox();
@@ -52,10 +56,6 @@ namespace EWS_Remote_Config_Tool
             this.ChangeFilesPanel = new MetroFramework.Controls.MetroPanel();
             this.ChangeFilesTextBox = new MetroFramework.Controls.MetroTextBox();
             this.ChangeFilesButton = new MetroFramework.Controls.MetroButton();
-            this.SendChangesPage = new MetroFramework.Controls.MetroTabPage();
-            this.ConsolePanel = new MetroFramework.Controls.MetroPanel();
-            this.ConsoleTextBox = new MetroFramework.Controls.MetroTextBox();
-            this.SendChangesButton = new MetroFramework.Controls.MetroButton();
             this.SettingsPage = new MetroFramework.Controls.MetroTabPage();
             this.SettingsLogOutButton = new MetroFramework.Controls.MetroButton();
             this.SettingsColourComboBox = new MetroFramework.Controls.MetroComboBox();
@@ -64,14 +64,15 @@ namespace EWS_Remote_Config_Tool
             this.SettingsDarkModeToggle = new MetroFramework.Controls.MetroToggle();
             this.metroStyleManager1 = new MetroFramework.Components.MetroStyleManager(this.components);
             this.AccountLabel = new MetroFramework.Controls.MetroLabel();
+            this.VersionLabel = new MetroFramework.Controls.MetroLabel();
             this.TabControl.SuspendLayout();
             this.EmailLoginPage.SuspendLayout();
+            this.SendChangesPage.SuspendLayout();
+            this.ConsolePanel.SuspendLayout();
             this.EmailDetailsPage.SuspendLayout();
             this.IMEIListPanel.SuspendLayout();
             this.ChangeFilesPage.SuspendLayout();
             this.ChangeFilesPanel.SuspendLayout();
-            this.SendChangesPage.SuspendLayout();
-            this.ConsolePanel.SuspendLayout();
             this.SettingsPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize) (this.metroStyleManager1)).BeginInit();
             this.SuspendLayout();
@@ -143,6 +144,54 @@ namespace EWS_Remote_Config_Tool
             this.EmailLoginTextBox.Name = "EmailLoginTextBox";
             this.EmailLoginTextBox.Size = new System.Drawing.Size(228, 22);
             this.EmailLoginTextBox.TabIndex = 7;
+            // 
+            // SendChangesPage
+            // 
+            this.SendChangesPage.Controls.Add(this.ConsolePanel);
+            this.SendChangesPage.Controls.Add(this.SendChangesButton);
+            this.SendChangesPage.HorizontalScrollbarBarColor = true;
+            this.SendChangesPage.Location = new System.Drawing.Point(4, 35);
+            this.SendChangesPage.Name = "SendChangesPage";
+            this.SendChangesPage.Size = new System.Drawing.Size(746, 311);
+            this.SendChangesPage.TabIndex = 4;
+            this.SendChangesPage.Text = "Send Changes";
+            this.SendChangesPage.VerticalScrollbarBarColor = true;
+            // 
+            // ConsolePanel
+            // 
+            this.ConsolePanel.Controls.Add(this.ConsoleTextBox);
+            this.ConsolePanel.HorizontalScrollbar = true;
+            this.ConsolePanel.HorizontalScrollbarBarColor = true;
+            this.ConsolePanel.HorizontalScrollbarHighlightOnWheel = false;
+            this.ConsolePanel.HorizontalScrollbarSize = 10;
+            this.ConsolePanel.Location = new System.Drawing.Point(225, 10);
+            this.ConsolePanel.Name = "ConsolePanel";
+            this.ConsolePanel.Size = new System.Drawing.Size(494, 290);
+            this.ConsolePanel.TabIndex = 16;
+            this.ConsolePanel.VerticalScrollbar = true;
+            this.ConsolePanel.VerticalScrollbarBarColor = true;
+            this.ConsolePanel.VerticalScrollbarHighlightOnWheel = false;
+            this.ConsolePanel.VerticalScrollbarSize = 10;
+            // 
+            // ConsoleTextBox
+            // 
+            this.ConsoleTextBox.Location = new System.Drawing.Point(3, 3);
+            this.ConsoleTextBox.Multiline = true;
+            this.ConsoleTextBox.Name = "ConsoleTextBox";
+            this.ConsoleTextBox.ReadOnly = true;
+            this.ConsoleTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.ConsoleTextBox.Size = new System.Drawing.Size(488, 284);
+            this.ConsoleTextBox.TabIndex = 3;
+            this.ConsoleTextBox.Text = " ";
+            // 
+            // SendChangesButton
+            // 
+            this.SendChangesButton.Location = new System.Drawing.Point(30, 20);
+            this.SendChangesButton.Name = "SendChangesButton";
+            this.SendChangesButton.Size = new System.Drawing.Size(173, 37);
+            this.SendChangesButton.TabIndex = 2;
+            this.SendChangesButton.Text = "Send Changes";
+            this.SendChangesButton.Click += new System.EventHandler(this.SendChangesButton_Click);
             // 
             // EmailDetailsPage
             // 
@@ -277,54 +326,6 @@ namespace EWS_Remote_Config_Tool
             this.ChangeFilesButton.Text = "Select Change Files";
             this.ChangeFilesButton.Click += new System.EventHandler(this.ChangeFilesButton_Click);
             // 
-            // SendChangesPage
-            // 
-            this.SendChangesPage.Controls.Add(this.ConsolePanel);
-            this.SendChangesPage.Controls.Add(this.SendChangesButton);
-            this.SendChangesPage.HorizontalScrollbarBarColor = true;
-            this.SendChangesPage.Location = new System.Drawing.Point(4, 35);
-            this.SendChangesPage.Name = "SendChangesPage";
-            this.SendChangesPage.Size = new System.Drawing.Size(746, 311);
-            this.SendChangesPage.TabIndex = 4;
-            this.SendChangesPage.Text = "Send Changes";
-            this.SendChangesPage.VerticalScrollbarBarColor = true;
-            // 
-            // ConsolePanel
-            // 
-            this.ConsolePanel.Controls.Add(this.ConsoleTextBox);
-            this.ConsolePanel.HorizontalScrollbar = true;
-            this.ConsolePanel.HorizontalScrollbarBarColor = true;
-            this.ConsolePanel.HorizontalScrollbarHighlightOnWheel = false;
-            this.ConsolePanel.HorizontalScrollbarSize = 10;
-            this.ConsolePanel.Location = new System.Drawing.Point(225, 10);
-            this.ConsolePanel.Name = "ConsolePanel";
-            this.ConsolePanel.Size = new System.Drawing.Size(494, 290);
-            this.ConsolePanel.TabIndex = 16;
-            this.ConsolePanel.VerticalScrollbar = true;
-            this.ConsolePanel.VerticalScrollbarBarColor = true;
-            this.ConsolePanel.VerticalScrollbarHighlightOnWheel = false;
-            this.ConsolePanel.VerticalScrollbarSize = 10;
-            // 
-            // ConsoleTextBox
-            // 
-            this.ConsoleTextBox.Location = new System.Drawing.Point(3, 3);
-            this.ConsoleTextBox.Multiline = true;
-            this.ConsoleTextBox.Name = "ConsoleTextBox";
-            this.ConsoleTextBox.ReadOnly = true;
-            this.ConsoleTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.ConsoleTextBox.Size = new System.Drawing.Size(488, 284);
-            this.ConsoleTextBox.TabIndex = 3;
-            this.ConsoleTextBox.Text = " ";
-            // 
-            // SendChangesButton
-            // 
-            this.SendChangesButton.Location = new System.Drawing.Point(30, 20);
-            this.SendChangesButton.Name = "SendChangesButton";
-            this.SendChangesButton.Size = new System.Drawing.Size(173, 37);
-            this.SendChangesButton.TabIndex = 2;
-            this.SendChangesButton.Text = "Send Changes";
-            this.SendChangesButton.Click += new System.EventHandler(this.SendChangesButton_Click);
-            // 
             // SettingsPage
             // 
             this.SettingsPage.Controls.Add(this.SettingsLogOutButton);
@@ -402,11 +403,21 @@ namespace EWS_Remote_Config_Tool
             this.AccountLabel.Text = "Logged Out";
             this.AccountLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // VersionLabel
+            // 
+            this.VersionLabel.FontSize = MetroFramework.MetroLabelSize.Small;
+            this.VersionLabel.Location = new System.Drawing.Point(4, 9);
+            this.VersionLabel.Name = "VersionLabel";
+            this.VersionLabel.Size = new System.Drawing.Size(124, 15);
+            this.VersionLabel.TabIndex = 9;
+            this.VersionLabel.Text = "Verison 1.2.4.2";
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.VersionLabel);
             this.Controls.Add(this.AccountLabel);
             this.Controls.Add(this.TabControl);
             this.Icon = ((System.Drawing.Icon) (resources.GetObject("$this.Icon")));
@@ -417,16 +428,18 @@ namespace EWS_Remote_Config_Tool
             this.Load += new System.EventHandler(this.Main_Load);
             this.TabControl.ResumeLayout(false);
             this.EmailLoginPage.ResumeLayout(false);
+            this.SendChangesPage.ResumeLayout(false);
+            this.ConsolePanel.ResumeLayout(false);
             this.EmailDetailsPage.ResumeLayout(false);
             this.IMEIListPanel.ResumeLayout(false);
             this.ChangeFilesPage.ResumeLayout(false);
             this.ChangeFilesPanel.ResumeLayout(false);
-            this.SendChangesPage.ResumeLayout(false);
-            this.ConsolePanel.ResumeLayout(false);
             this.SettingsPage.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize) (this.metroStyleManager1)).EndInit();
             this.ResumeLayout(false);
         }
+
+        private MetroFramework.Controls.MetroLabel VersionLabel;
 
         private MetroFramework.Controls.MetroPanel ConsolePanel;
         private MetroFramework.Controls.MetroTextBox ConsoleTextBox;
